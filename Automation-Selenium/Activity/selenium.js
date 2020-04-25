@@ -3,7 +3,7 @@ let swd = require("selenium-webdriver");
 let fs = require("fs")
 let credentialsFile = process.argv[2]
 let metaDataFile = process.argv[3];
-let username, password, gModules, QuestionToBeOpened, LectureToBeOpened
+let username, password, gModules, QuestionToBeOpened, LectureToBeOpened , codeToBeSent
 
 
 //browser build
@@ -110,6 +110,7 @@ credentialswillbeReadPromise
         let data = metadata[0]
         LectureToBeOpened = data.lecture;
         QuestionToBeOpened = data.problem;
+        codeToBeSent = data.path;
         let LectureWillBeSelectedPromise = driver.findElements(swd.By.css(".collection.row a"))
         return LectureWillBeSelectedPromise;
     }).then(function (lectures) {
@@ -179,7 +180,13 @@ credentialswillbeReadPromise
         let editorWillBeClickedPromise = editor.click();
         return editorWillBeClickedPromise
     }).then(function(){
-        console.log("Editor opened");
+        let customInputWillbeSelected = driver.findElement(swd.By.css("#customInput"))
+        return customInputWillbeSelected
+    }).then(function(textArea){
+        let codeWillBeSentPromise = textArea.sendKeys(codeToBeSent)
+        return codeWillBeSentPromise
+    }).then(function(){
+        console.log("code sent");
         
     }).catch(function (err) {
         console.log(err);
