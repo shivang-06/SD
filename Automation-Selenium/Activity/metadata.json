@@ -1,8 +1,8 @@
 [
 {   
     "module": "Recursion",
-    "lecture": "getting-started",
-    "problem": "is-number-prime-official",
+    "lecture": "recursion-in-arrays",
+    "problem": "first-index-official",
     "path": "./codes/code1"
 }
 
