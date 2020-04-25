@@ -1,8 +1,8 @@
 let fs = require("fs")
 
 
-function promisisfy(path) {
-    let fileWiilBeReadPromise = new Promise(function (resolve, reject) {
+function promisifyfs(path) {
+    let createPromise = new Promise(function (resolve, reject) {
         fs.readFile(path, function (err, data) {
             if (err) {
                 reject(err)
@@ -12,4 +12,14 @@ function promisisfy(path) {
         })
 
     })
+    return createPromise;
 }
+
+let fileWillBeREadPromise = promisifyfs("f1.txt")
+
+fileWillBeREadPromise.then(function(data){
+
+})
+fileWillBeREadPromise.catch(function(err){
+
+})
