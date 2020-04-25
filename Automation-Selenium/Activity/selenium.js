@@ -94,7 +94,7 @@ credentialswillbeReadPromise
         let i;
         // console.log(allModulesText.length);
         for (i = 0; i < allModulesText.length; i++) {
-            if (allModulesText[i].includes('Basics of Programming') === true) {
+            if (allModulesText[i].includes('Recursion') === true) {
                 break;
             }
         }
@@ -115,10 +115,13 @@ credentialswillbeReadPromise
     }).then(function (lectures) {
         let i;
         let hrefAttributeArr = []
+        // console.log(lectures);
+        
         for (i = 0; i < lectures.length; i++) {
             let href = lectures[i].getAttribute("href")
             hrefAttributeArr.push(href)
         }
+        
         // console.log("finding href");
 
         let hrefAllPromise = Promise.all(hrefAttributeArr);
