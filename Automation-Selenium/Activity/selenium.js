@@ -3,7 +3,7 @@ let swd = require("selenium-webdriver");
 let fs = require("fs")
 let credentialsFile = process.argv[2]
 let metaDataFile = process.argv[3];
-let username, password, gModules, QuestionToBeOpened, LectureToBeOpened , codeToBeSent
+let username, password, gModules, QuestionToBeOpened, LectureToBeOpened, codeToBeSent
 
 
 //browser build
@@ -110,19 +110,26 @@ credentialswillbeReadPromise
         let data = metadata[0]
         LectureToBeOpened = data.lecture;
         QuestionToBeOpened = data.problem;
-        codeToBeSent = data.path;
+        fs.readFile(data.path, "utf8", function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                codeToBeSent = res
+            }
+        });
         let LectureWillBeSelectedPromise = driver.findElements(swd.By.css(".collection.row a"))
         return LectureWillBeSelectedPromise;
     }).then(function (lectures) {
         let i;
         let hrefAttributeArr = []
         // console.log(lectures);
-        
+
         for (i = 0; i < lectures.length; i++) {
             let href = lectures[i].getAttribute("href")
             hrefAttributeArr.push(href)
         }
-        
+
         // console.log("finding href");
 
         let hrefAllPromise = Promise.all(hrefAttributeArr);
@@ -167,27 +174,27 @@ credentialswillbeReadPromise
         }
         let QuestionWillBeNavigatedPromise = driver.get(anchors[i])
         return QuestionWillBeNavigatedPromise
-    }).then(function(){
+    }).then(function () {
         let siteOverlayWillbeSelectedPromise = driver.findElement(swd.By.css("#siteOverlay"))
         return siteOverlayWillbeSelectedPromise
-    }).then(function(overlay){
-        let WaitForOverlaytoRemovePromise = driver.wait(swd.until.elementIsNotVisible(overlay),10000)
+    }).then(function (overlay) {
+        let WaitForOverlaytoRemovePromise = driver.wait(swd.until.elementIsNotVisible(overlay), 10000)
         return WaitForOverlaytoRemovePromise
-    }).then(function(){
+    }).then(function () {
         let editorWillBeSelectedPromise = driver.findElement(swd.By.css(".tab.bold.editorTab"))
         return editorWillBeSelectedPromise
-    }).then(function(editor){
+    }).then(function (editor) {
         let editorWillBeClickedPromise = editor.click();
         return editorWillBeClickedPromise
-    }).then(function(){
+    }).then(function () {
         let customInputWillbeSelected = driver.findElement(swd.By.css("#customInput"))
         return customInputWillbeSelected
-    }).then(function(textArea){
+    }).then(function (textArea) {
         let codeWillBeSentPromise = textArea.sendKeys(codeToBeSent)
         return codeWillBeSentPromise
-    }).then(function(){
+    }).then(function () {
         console.log("code sent");
-        
+
     }).catch(function (err) {
         console.log(err);
 
