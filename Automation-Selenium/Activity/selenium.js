@@ -187,13 +187,34 @@ credentialswillbeReadPromise
         let editorWillBeClickedPromise = editor.click();
         return editorWillBeClickedPromise
     }).then(function () {
+        let metadataWillBeReadPromise = fs.promises.readFile(metaDataFile)
+        return metadataWillBeReadPromise
+    }).then(function (metadata) {
+        metadata = JSON.parse(metadata)
+        let data = metadata[0]
+        console.log("Starting to read code to be sent");
+
+        fs.readFile(data.path, "utf8", function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                codeToBeSent = res
+                console.log("code to be sent read completely");
+            }
+        });
+    }).then(function () {
         let customInputWillbeSelected = driver.findElement(swd.By.css("#customInput"))
+        console.log("Selecting input space");
         return customInputWillbeSelected
     }).then(function (textArea) {
+
+        console.log("input space located starting copying -----" + textArea);
         let codeWillBeSentPromise = textArea.sendKeys(codeToBeSent)
+        console.log("sent keys of code to browser");
         return codeWillBeSentPromise
-    }).then(function () {
-        console.log("code sent");
+    }).then(function (checking) {
+        console.log("code sent----- " + checking);
 
     }).catch(function (err) {
         console.log(err);
