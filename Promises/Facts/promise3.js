@@ -9,8 +9,20 @@ function promiseCreator(){
 let pendingPromise = promiseCreator()
 console.log(pendingPromise); // At this stage promise will always be pending
 
-function cb(data){
+function resolve(data){
     console.log(data);
     
+    return 20;    
 }
-pendingPromise.then(cb)
+function reject(err){
+    console.log(err);
+}
+const pPromiseFromThen =    pendingPromise.then(resolve,reject)
+console.log(pPromiseFromThen);
+
+setTimeout(function(){
+    console.log("--------------------------------------------------------------");
+    
+    console.log(pPromiseFromThen);
+    
+},1500)
