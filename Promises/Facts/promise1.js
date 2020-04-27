@@ -1,7 +1,7 @@
 function promiseCreator(){
     return new Promise(function(resolve,reject){
         setTimeout(function(){
-            resolve(10);
+            resolve(10); // if we use reject here, it will throw an error
         },1000)
     })
 }
