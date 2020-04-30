@@ -1,1 +1,1 @@
-node "moderator.js" "../../cred.json" 
+node "createChallenges.js" "../../cred.json" 

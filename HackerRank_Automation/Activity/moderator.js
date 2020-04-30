@@ -21,10 +21,9 @@ let cFile = process.argv[2];
         let lgnBttn = await driver.findElement(swd.By.css("button[data-analytics=LoginPassword]"))
         lgnBttn.click();
         console.log("Logged In");
+        await waitForLoader();
+        let manageTabs = await driver.
 
-        // let profileBttnwillBeSelectedPromise = await driver.findElement(swd.By.css(".dropdown.dropdown.dropdown-auth.profile-menu.cursor.theme-m-content.open"))
-        // console.log(profileBttnwillBeSelectedPromise);
-        // profileBttnwillBeSelectedPromise.click();
         let adminBtnanchor =  driver.findElement(swd.By.css(a[data-analytics=NaveBarProfile]))
         let adminPageUrl = await adminBtnanchor.getAttribute("href")
         await driver.get(adminPageUrl)
@@ -33,3 +32,7 @@ let cFile = process.argv[2];
         console.log(err);
     }
 })()
+
+async function waitForLoader(){
+
+}
