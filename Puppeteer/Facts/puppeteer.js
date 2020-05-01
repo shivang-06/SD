@@ -33,14 +33,35 @@ let cFile = process.argv[2];
     let mpUrl = await page.url();
     let qidx = 0;
     while (true) {
-        let question = await getMeQuestionElement(page,qidx,mpUrl);
-        if(question == null){
+        let question = await getMeQuestionElement(page, qidx, mpUrl);
+        if (question == null) {
             console.log("All questions processed");
             return;
         }
-        qidx++;}})();
+        qidx++;
+    }
+})();
+
+async function getMeQuestionElement(page, qidx, mpUrl) {
+    let pidx = Math.floor(qidx / 10)
+    let pQidx = qidx % 10;
+    await waitForLoader(page)
+    await page.waitForSelector(".pagination ul li", { visible: true });
+    let paginations = await page.$$(".pagination ul li");
+    let nxtBtn = paginations[paginations.length - 2]
+
+    let className = await page.evaluate(function(el){
+        return el.getAttribute("class")
+    },nxtBtn);
 
 
+    for(let i=0;i<pidx;i++){
+        if(className == "disabled")
+        return null;
+
+        await nxtBtn.click()
+    }
+}
 
 
 
