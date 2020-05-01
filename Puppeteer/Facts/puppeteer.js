@@ -20,7 +20,7 @@ let cFile = process.argv[2];
     await page.type("#input-1", user)
     await page.type("#input-2", pwd)
     await page.click("button[data-analytics = LoginPassword]");
-    //--------------Dashboard-------------------------------------
+    //-----------------------------------Dashboard-------------------------------------
     await page.waitForNavigation({ waitUntil: "networkidle0" })
     await page.waitForSelector("a[data-analytics = NavBarProfileDropDown]", { visible: true });
 
