@@ -50,14 +50,14 @@ async function getMeQuestionElement(page, qidx, mpUrl) {
     let paginations = await page.$$(".pagination ul li");
     let nxtBtn = paginations[paginations.length - 2]
 
-    let className = await page.evaluate(function(el){
+    let className = await page.evaluate(function (el) {
         return el.getAttribute("class")
-    },nxtBtn);
+    }, nxtBtn);
 
 
-    for(let i=0;i<pidx;i++){
-        if(className == "disabled")
-        return null;
+    for (let i = 0; i < pidx; i++) {
+        if (className == "disabled")
+            return null;
 
         await nxtBtn.click()
     }
