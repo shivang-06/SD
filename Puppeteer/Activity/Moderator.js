@@ -33,12 +33,16 @@ let cFile = process.argv[2];
            [page.waitForNavigation({ waitUntil: "networkidle0" }),
            page.click("a[data-analytics = NavBarProfileDropDownAdministration]")]
        )
-        
-        await waitForLoader(page)
+        await page.waitForSelector(".administration header", {visible: true})
+        let tabs = await page.$$(".administration header ul li a");
+        let href = await page.evaluate(function(el){
+            return el.getAttribute("href")
+        },tabs[1])
+        // await tabs[1].click();
+        let mpUrl = "https://www.hackerrank.com" + href;
+        await page.goto(mpUrl);
 
-        let tabs = await page.$$(".administration header ul li");
-        await tabs[1].click();
-        let mpUrl = await page.url();
+
         let qidx = 0;
         while (true) {
             let question = await getMeQuestionElement(page, qidx, mpUrl);
@@ -46,6 +50,7 @@ let cFile = process.argv[2];
                 console.log("All questions processed");
                 return;
             }
+            await handleQuestion(page,question,process.argv[3]);
             qidx++;
         }
     }catch(err){
@@ -56,7 +61,13 @@ let cFile = process.argv[2];
 async function getMeQuestionElement(page, qidx, mpUrl) {
     let pidx = Math.floor(qidx / 10)
     let pQidx = qidx % 10;
-    await waitForLoader(page)
+    // page Visit
+    console.log(pidx + " " + pQidx);
+    //got to manage challenges page => pidx =0;
+    await page.goto(mpUrl)
+    await page.waitForNavigation({waitUntil: "networkidle0"});
+    // await waitForLoader(page)
+    //You will wait for pagination
     await page.waitForSelector(".pagination ul li", { visible: true });
     let paginations = await page.$$(".pagination ul li");
     let nxtBtn = paginations[paginations.length - 2]
@@ -65,14 +76,36 @@ async function getMeQuestionElement(page, qidx, mpUrl) {
         return el.getAttribute("class")
     }, nxtBtn);
 
-
     for (let i = 0; i < pidx; i++) {
         if (className == "disabled")
             return null;
-
+        }
         await nxtBtn.click()
-    }
+        // wait for page visible
+        await page.waitForSelector(".pagination ul li",{visible: true})
+        // find elements
+        paginations = await page.$$(".pagination ul li");
+        nxtBtn = paginations[paginations.length-2];
+        //attribute
+        className = await page.evaluate(function(el){
+            return el.getAttribute("class")
+        },nxtBtn);
+        //pageQuestion
+        let challengeList = await page.$$(".backbone.block-center");
+        if(challengeList.length>pQidx){
+            return challengeList[pQidx];
+        }else{
+            return null
+        }
 }
 
 
-
+async function handleQuestion(page,question,uToAdd){
+    await Promise.all([page.waitForNavigation({ waitUntil :"networkidle0"}),question.click()]);
+    await page.waitForSelector("li[data-tab=moderators]",{visible: true})
+    await page.click("li[data-tab=moderators]");
+    await page.waitForSelector("input[id=moderator]" , {visible: true});
+    await page.type("#moderator",uToAdd);
+    await page.keyboard.press("Enter");
+    await page.click(".save-challenge.btn.btn-green")
+}
