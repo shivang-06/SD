@@ -9,6 +9,7 @@ let cFile = process.argv[2];
         const browser = await puppeteer.launch({
             headless: false,
             slowMo: 50,
+            defaultViewport: null,
             args: ["--start-maximized"]
         });
 
@@ -20,13 +21,19 @@ let cFile = process.argv[2];
 
         await page.type("#input-1", user)
         await page.type("#input-2", pwd)
-        await page.click("button[data-analytics = LoginPassword]");
+        await Promise.all(
+            [page.waitForNavigation({waitUntil:"networkidle0"}),
+            page.click("button[data-analytics = LoginPassword]")]
+        )
         //-----------------------------------Dashboard-------------------------------------
-        await page.waitForNavigation({ waitUntil: "networkidle0" })
+        
         await page.waitForSelector("a[data-analytics = NavBarProfileDropDown]", { visible: true });
-
         await page.click("a[data-analytics = NavBarProfileDropDown]");
-        await page.click("a[data-analytics = NavBarProfileDropDownAdministration]")
+        await Promise.all(
+           [page.waitForNavigation({ waitUntil: "networkidle0" }),
+           page.click("a[data-analytics = NavBarProfileDropDownAdministration]")]
+       )
+        
         await waitForLoader(page)
 
         let tabs = await page.$$(".administration header ul li");
