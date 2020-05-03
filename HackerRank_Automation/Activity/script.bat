@@ -1,1 +1,1 @@
-node "createChallenges.js" "../../cred.json" 
+node "createChallenges.js" "../../cred.json" "./questions.js"
