@@ -1,38 +1,38 @@
-let fs = require("fs")
+let fs = require("fs");
 require("chromedriver")
 let swd = require("selenium-webdriver")
 let bldr = new swd.Builder();
 let driver = bldr.forBrowser("chrome").build()
 
 let cFile = process.argv[2];
-// let uToAdd = process.argv[3]
+let userToadd = process.argv[3];
+
+
 (async function () {
     try {
-        await driver
-        let data = await fs.promises.readFile(cFile)
-        let { url, pwd, user } = JSON.parse(data)
-        await driver.get(url);
-        let usernameInputWillbeFoundPromise = driver.findElement(swd.By.css("#input-1"))
-        let pwdInputWillbeFoundPRomise = driver.findElement(swd.By.css("#input-2"))
-        let loginPromise = await Promise.all([usernameInputWillbeFoundPromise, pwdInputWillbeFoundPRomise])
-        let uNameWIllBeSentPromise = loginPromise[0].sendKeys(user)
-        let pwdWillBeSentPromise = loginPromise[1].sendKeys(pwd)
-        Promise.all([uNameWIllBeSentPromise, pwdWillBeSentPromise])
-        let lgnBttn = await driver.findElement(swd.By.css("button[data-analytics=LoginPassword]"))
-        lgnBttn.click();
-        console.log("Logged In");
-        await waitForLoader();
-        let manageTabs = await driver.
+        await loginHelper();
 
-        let adminBtnanchor =  driver.findElement(swd.By.css(a[data-analytics=NaveBarProfile]))
-        let adminPageUrl = await adminBtnanchor.getAttribute("href")
-        await driver.get(adminPageUrl)
-    }
-    catch (err) {
+        let 
+
+    } catch (err) {
         console.log(err);
     }
-})()
+})();
 
-async function waitForLoader(){
+ async function loginHelper() {
+    let data = await fs.promises.readFile(cFile);
+    let { user, pwd, url } = JSON.parse(data);
+    // reaching at given url
+    await driver.get(url);
 
+    //fining userName and pwd fields
+    let userName = await driver.findElement(swd.By.css("#input-1"))
+    let pwdField = await driver.findElement(swd.By.css("#input-2"))
+    // filling user and pwd fields
+    await userName.sendKeys(user);
+    await pwdField.sendKeys(pwd);
+    //finding log-in button
+    let LoginBtn = await driver.findElement(swd.By.css(".ui-btn.ui-btn-large.ui-btn-primary.auth-button"))
+    //clicking log-in btn
+    await LoginBtn.click();
 }

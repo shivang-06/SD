@@ -14,7 +14,10 @@ let questionsFile = process.argv[3];
             let adminLinAnchor = await driver.findElement(swd.By.css("a[data-analytics=NavBarProfileDropDownAdministration]"));
             await adminLinAnchor.click();
             await waitForLoader();
-            let manageTabs = await driver.findElement(swd.By.css(".administration header ul li"))
+            let manageTabs = await driver.findElements(swd.By.css(".administration header ul li"))
+            console.log(manageTabs);
+            console.log("Checking array "+manageTabs[1]);
+            
             await manageTabs[1].click();
 
             let manageChallengePage = await driver.getCurrentUrl();
@@ -66,7 +69,7 @@ async function waitForLoader() {
 }
 
 async function loginHelper() {
-    await driver.manage().setTimeout({ implicit: 10000, pageLoad: 10000 })
+    await driver.manage().setTimeouts({ implicit: 10000, pageLoad: 10000 })
     let data = await fs.promises.readFile(cFile);
     let { url , pwd, user} = JSON.parse(data);
     //Login page
