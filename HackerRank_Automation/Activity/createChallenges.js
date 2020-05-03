@@ -4,7 +4,7 @@ let swd = require("selenium-webdriver")
 let bldr = new swd.Builder();
 let driver = bldr.forBrowser("chrome").build()
 let cFile = process.argv[2];
-let questionsFile = process.argv[3]
+let questionsFile = process.argv[3];
 
     (async function () {
         try {
