@@ -25,14 +25,26 @@ let userToadd = process.argv[3];
         await driver.get(manageChallengeURL);
 
         let challengeRows = await driver.findElements(swd.By.css(".backbone.block-center"));
-        console.log(challengeRows);
-        await challengeRows[0].click();
-        
-
+       
+        for(let i=0;i<1;i++){
+            // let rowElement = await findRow(i);
+            // await rowElement.click();
+            await challengeRows[i].click();
+            await waitForLoader();
+            await addModerator();            
+            let modTextField = await driver.findElement(swd.By.css("input[id = moderator]"))
+            await modTextField.sendKeys(userToadd);
+            let addBtn = await driver.findElement(swd.By.css(".btn.moderator-save"))
+            await addBtn.click();
+            let saveBtn = await driver.findElement(swd.By.css(".save-challenge.btn.btn-green"))
+            await saveBtn.click();
+            await driver.get(manageChallengeURL)
+        }
     } catch (err) {
         console.log(err);
     }
 })();
+
 
 async function loginHelper() {
     await driver.manage().setTimeouts({ implicit: 10000, pageLoad: 10000 })
@@ -55,4 +67,18 @@ async function loginHelper() {
 async function waitForLoader() {
     let loader = await driver.findElement(swd.By.css("#ajax-msg"));
     await driver.wait(swd.until.elementIsNotVisible(loader));
+}
+async function addModerator(){
+    // let spanEl = await driver.findElement(swd.By.css("span.tag"));
+    // await driver.wait(swd.until.elementLocated(spanEl),10000)
+    await driver.wait(swd.until.elementLocated(swd.By.css('span.tag')),5000)
+    let modTab = await driver.findElement(swd.By.css("li[data-tab = moderators]"))
+    // console.log("about to click moderator");      
+    await modTab.click();
+    // console.log("moderator clicked");
+}
+
+async function findRow(){
+
+
 }
