@@ -26,10 +26,10 @@ let userToadd = process.argv[3];
 
         let challengeRows = await driver.findElements(swd.By.css(".backbone.block-center"));
        
-        for(let i=0;i<1;i++){
-            // let rowElement = await findRow(i);
-            // await rowElement.click();
-            await challengeRows[i].click();
+        for(let i=0;i<challengeRows.length;i++){
+            let rowElement = await findRow(i);
+            await rowElement.click();
+            // await challengeRows[i].click();
             await waitForLoader();
             await addModerator();            
             let modTextField = await driver.findElement(swd.By.css("input[id = moderator]"))
@@ -79,6 +79,6 @@ async function addModerator(){
 }
 
 async function findRow(){
-
+    
 
 }
