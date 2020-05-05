@@ -1,1 +1,1 @@
-node "fbAuto.js" "../credss.json" "https://www.facebook.com/thehindu/" 10
+node "fbAuto.js" "../credss.json" "https://www.facebook.com/thehindu/" 50
