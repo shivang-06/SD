@@ -15,19 +15,19 @@ let nPost = process.argv[4];
             defaultViewport: null,
             args: ["--start-maximized", "--disable-notifications"]
         });
-        
+
         //tab
         let tabs = await browser.pages();
         let tab = tabs[0];
-    
-        
-        await tab
+
+
+        await tab.goto(url, { waitUntil: "networkidle2" });
         await tab.waitForSelector("input[type = email");
         await tab.type("input[type = email", user, { delay: 100 });
         await tab.type("input[type = password", pwd, { delay: 100 });
 
         await Promise.all([
-            tab.click(".login_form_button"),
+            tab.click(".login_form_login_button"),
             tab.waitForNavigation({ waitUntil: "networkidle2" })
         ])
         await tab.goto(pUrl, { waitUntil: "networkidle2" });
@@ -35,7 +35,7 @@ let nPost = process.argv[4];
 
         await Promise.all([
             tab.click("div[data-key = tab_posts]"),
-            tab.waitForNavigation({ waitUntil: "netwrokidle2" })
+            tab.waitForNavigation({ waitUntil: "networkidle2" })
         ])
 
         let idx = 0;
