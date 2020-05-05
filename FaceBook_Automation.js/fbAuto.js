@@ -37,7 +37,7 @@ let nPost = process.argv[4];
             tab.click("div[data-key = tab_posts]"),
             tab.waitForNavigation({ waitUntil: "networkidle2" })
         ])
-
+        await tab.waitForNavigation({waitUntil: "networkidle2"});
         let idx = 0;
         do {
             //posts => 7 Post => are loaded
@@ -47,10 +47,12 @@ let nPost = process.argv[4];
             let elements = await tab.$$("#pagelet_timeline_main_column ._1xnd > ._4-u2._4-u8");
 
             let post = elements[idx];
+
             await tab.waitForSelector("._666k ._8c74");
             let like = await post.$("._666k ._8c74");
             await like.click({ delay: 100 });
             idx++;
+            await tab.waitForSelector(".uiMorePagerLoader",{hidden: true})
         } while (idx < nPost)
     } catch (err) {
         console.log(err);

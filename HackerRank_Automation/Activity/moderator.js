@@ -12,15 +12,17 @@ let userToadd = process.argv[3];
     try {
         await loginHelper();
 
+        //Reahed Dashboard !
         let dropDownBtn = await driver.findElement(swd.By.css("a[data-analytics=NavBarProfileDropDown]"))
         await dropDownBtn.click();
         let adminLinAnchor = await driver.findElement(swd.By.css("a[data-analytics=NavBarProfileDropDownAdministration]"));
         await adminLinAnchor.click();
-        let manageTabs = await driver.findElements(swd.By.css(".administration header ul li a"))
-        // console.log(manageTabs[1]);
-        
+
+        await waitForLoader();
+        let manageTabs = await driver.findElements(swd.By.css(".administration header ul li a"))        
         let href = await manageTabs[1].getAttribute("href")
-        // console.log(href);
+
+
         let manageChallengeURL =  href;
         await driver.get(manageChallengeURL);
 
@@ -78,7 +80,7 @@ async function addModerator(){
     // console.log("moderator clicked");
 }
 
-async function findRow(){
-    
-
+async function findRow(i){
+    let rows = (await driver).findElements(swd.By.css(".backbone.block-center"));
+    return rows[i];
 }
