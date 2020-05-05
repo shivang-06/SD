@@ -1,7 +1,6 @@
 let puppeteer = require("puppeteer");
 let cFile = process.argv[2];
 let fs = require("fs");
-
 let pUrl = process.argv[3];
 let nPost = process.argv[4];
 
@@ -11,17 +10,18 @@ let nPost = process.argv[4];
         let { url, pwd, user } = JSON.parse(data);
 
         //Launch browser
-        let browser = puppeteer.launch({
+        let browser = await puppeteer.launch({
             headless: false,
             defaultViewport: null,
             args: ["--start-maximized", "--disable-notifications"]
-        })
-
+        });
+        
         //tab
-        let tabs = (await browser).pages();
+        let tabs = await browser.pages();
         let tab = tabs[0];
-
-        await tab.goto(url, { waitUntil: "networkidle2" });
+    
+        
+        await tab
         await tab.waitForSelector("input[type = email");
         await tab.type("input[type = email", user, { delay: 100 });
         await tab.type("input[type = password", pwd, { delay: 100 });
