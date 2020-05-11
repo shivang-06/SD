@@ -1,0 +1,1 @@
+node "spot.js" "./cred.json" "./albums.js"
