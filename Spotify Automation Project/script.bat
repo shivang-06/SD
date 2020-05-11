@@ -1,1 +1,1 @@
-node "spot.js" "./cred.json" "./albums.js"
+node "spot.js" "../cred.json" "./albums.js"
