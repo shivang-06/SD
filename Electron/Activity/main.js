@@ -15,6 +15,7 @@ function createWindow(){
     const win = new electron.BrowserWindow({
         width: 800,
         height: 600,
+        show: false, //so when app is loaded it is not visible at start and only visible when maximized.
         webPreferences: {
             nodeIntegration: true
         }
@@ -23,7 +24,7 @@ function createWindow(){
     win.loadFile('index.html').then(function(){
         console.log("App loaded successfully");
         win.maximize(); 
-        // win.show();
+        win.show();
         win.webContents.openDevTools();
     });
 }
