@@ -25,7 +25,7 @@ function createWindow(){
         console.log("App loaded successfully");
         win.maximize(); 
         win.show();
-        win.webContents.openDevTools();
+        // win.webContents.openDevTools();
     });
 }
 

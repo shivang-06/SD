@@ -3,7 +3,7 @@ html,body{
     padding: 0px;
 }
 
-*{
+*{ /* to apply on whole page*/
     box-sizing: border-box;
 }
 
@@ -21,7 +21,7 @@ html,body{
 }
 
 .cell-container{
-    height: calc(100vh - 124px);
+    height: calc(100vh - 124px); /*100vh means 100% of vertical heiht i.e. complete height of browser window*/
     background-color: wheat;
 }
 .sheets{
