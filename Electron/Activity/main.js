@@ -27,7 +27,7 @@ function createWindow(){
         }
     })
     // and load the index.html of the app.
-    win.loadFile('index.html').then(function(){
+    win.loadFile('index.ejs').then(function(){
         console.log("App loaded successfully");
         win.maximize(); 
         win.show();

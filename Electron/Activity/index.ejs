@@ -14,16 +14,18 @@
     <div class="menu-options">Menu Options</div>
     <div class="formula-bar">Formula bar<input type="text"><input type="text"></div>
     <div class="cell-container">cell-container
-        <%for(let i=1;i<rows;i++){%>
+        <%for(let i=1;i <= rows ; i++){%>
         <div class="row">
-            <%for(let j=0;i<cols;i++){%>
-                <div class="col">
-                    <%i + " - "+String.fromCharCode(65+j) %>
-                </div>
-            <%}%>
+            <%for(let j=0;j < cols ;j++){%>
+            <div class="col">
+                <%=i + " - "+String.fromCharCode(65+j) %>
             </div>
-        <%}%>
+            <%}%>
         </div>
+        <%}%>
+    </div>
+        
+    
         <div class="sheets">sheets</div>
 
 

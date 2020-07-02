@@ -25,6 +25,14 @@ html,body{
     background-color: wheat;
     overflow: auto;
 }
+.row{
+    display: flex;
+}
+.col{
+    height: 25px;
+    border: 1px solid;
+    min-width: 49px;
+}
 .sheets{
     height: 20px;
     border: 1px solid darkslategray;
