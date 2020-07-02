@@ -10,6 +10,12 @@ run code :- npm start
 */
 const electron = require("electron"); //initialise electron variable
 const app =  electron.app;
+const ejs = require("ejs-electron")
+ejs.data({
+  "title": "My Excel",
+  "rows": 100,
+  "cols":26
+})
 function createWindow(){
     // Create the browser window.
     const win = new electron.BrowserWindow({
@@ -25,7 +31,7 @@ function createWindow(){
         console.log("App loaded successfully");
         win.maximize(); 
         win.show();
-        // win.webContents.openDevTools();
+        win.webContents.openDevTools();
     });
 }
 

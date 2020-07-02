@@ -23,6 +23,7 @@ html,body{
 .cell-container{
     height: calc(100vh - 124px); /*100vh means 100% of vertical heiht i.e. complete height of browser window*/
     background-color: wheat;
+    overflow: auto;
 }
 .sheets{
     height: 20px;
