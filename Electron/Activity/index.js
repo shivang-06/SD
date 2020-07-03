@@ -1,4 +1,7 @@
 const $ = require("jquery")
+const electron = require("electron");
+const fs = require("fs");
+const dialog = require("electron").remote.dialog;
 
 $(document).ready(
     function(){
@@ -32,7 +35,19 @@ $(document).ready(
            }
            console.log(db);
         })
+        $("#grid .cell").on("keyup",function(){
+            //update db
+            let rowId =$(this).attr("row-id");
+            let colId =$(this).attr("col-id");
+            db[rowId][colId] = $(this).html();
+            console.log(db);
+        })
 
+        $("#save").on("click",async function(){
+            let sdb = await dialog.showOpenDialog();
+            let JsonData = JSON.stringify(db);
+            fs.writeFileSync(sdb.filePaths[0],JsonData);
+        })
 
         function init(){
             $("#file").trigger("click");
