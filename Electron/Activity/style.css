@@ -1,6 +1,9 @@
 html,body{
     margin: 0px;
     padding: 0px;
+    color: #777;
+    font-family: sans-serif,'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1rem;
 }
 
 *{ /* to apply on whole page*/
@@ -11,10 +14,23 @@ html,body{
     height: 22px;
     border: solid red;
 }
+.menu-items{
+    width: 45px;
+    font-size: 90%;
+    text-align: center;
+}
+.menu-options-item{
+    display: none;
+}
+.selected{
+        display: block;
+}
 .menu-options{
     height: 56px;
     border: 1px solid green;
 } 
+
+/* formula bar... */
 .formula-bar{
     height: 26px;
     border: 1px solid yellow;
@@ -77,4 +93,7 @@ html,body{
 .sheets{
     height: 20px;
     border: 1px solid darkslategray;
+}
+.ib{
+    display: inline-block;
 }

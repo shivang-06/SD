@@ -10,8 +10,19 @@
 <!-- .menu+.menu-options.+(.formula-bar>(input[type = "text"]*2))+.cell-container+.sheets -->
 
 <body>
-    <div class="menu">Menu</div>
-    <div class="menu-options">Menu Options</div>
+    <div class="menu">
+        <div class="menu-items ib"     id = "file">File</div>
+        <div class="menu-items ib" id="home">Home</div>
+
+    </div>
+    <div class="menu-options">
+        <div id="file-options" class="menu-options-item selected">
+            <div id="new" class="ib">New</div>
+            <div id="open" class="ib">Open</div>
+            <div id="save" class="ib">save</div>
+        </div>
+        <div id="home-options" class="menu-options-item">home options</div>
+    </div>
     <div class="formula-bar">Formula bar<input type="text" id="address-container"><input type="text"></div>
     <div class="cell-container">
 
