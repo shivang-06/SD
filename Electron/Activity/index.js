@@ -8,5 +8,14 @@ $(document).ready(
             let colAddress = String.fromCharCode(colid + 65);
             $("#address-container").val(colAddress + rowid );
         })   
+        $(".menu-items").on("click",function(){
+            $(".menu-options-item").removeClass("selected");
+            let id = $(this).attr("id");
+            $(`#${id}-options`).addClass("selected");
+        })
+        function init(){
+            $("#file").trigger("click");
+        }
+        init();
     }
 );

@@ -29,7 +29,10 @@ html,body{
     height: 56px;
     border: 1px solid green;
 } 
-
+#file-options>div{
+    width: 50px;
+    text-align: center;
+}
 /* formula bar... */
 .formula-bar{
     height: 26px;
