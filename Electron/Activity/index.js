@@ -103,6 +103,7 @@ $(document).ready(
 
             }
         }
+
         function getRc(elem){
             let rowId = $(elem).attr("row-id");
             let colId = $(elem).attr("col-id");
@@ -114,6 +115,64 @@ $(document).ready(
 
         function getCellObject(rowId,colId){
             return db[rowId][colId];
+        }
+        function evaluate(cellObject) {
+            let formula = cellObject.formula;
+            // ( A1 + A2 )
+            let formulaComponent = formula.split(" ");
+            // [( ,A1,+,A2,)]
+            for (let i = 0; i < formulaComponent.length; i++) {
+                let code = formulaComponent[i].charCodeAt(0);
+                if (code >= 65 && code <= 90) {
+                    let parentRc = getRcFromAddress(formulaComponent[i]);
+
+                    let fParent = db[parentRc.rowId][parentRc.colId];
+                    let value = fParent.value;
+                    formula = formula.replace(formulaComponent[i], value)
+                }
+
+            }
+            // ( 10 + 20 )
+            console.log(formula);
+            let ans = eval(formula);
+            console.log(ans);
+            return ans;
+            // console.log(formula)
+            // for (let i = 0; i < cellObject.upstream.length; i++) {
+            //     let suo = cellObject.upstream[i];
+            //     let fParentObject = db[suo.rowId][suo.colId];
+            //     let val = fParentObject.value;
+            //     // formula => replace A1 => 10
+            //     let colAlpha = String.fromCharCode(suo.colId + 65);
+            //     let rowNumber = suo.rowId + 1;
+            //     let charMeParent = colAlpha + rowNumber;
+            //     formula = formula.replace(charMeParent, val);
+            // }
+            // console.log(formula);
+            // let ans = eval(formula);
+            // console.log(ans);
+            // return ans;
+        }
+        function updateCell(rowId, colId, val, cellObject) {
+            // update yourself
+            $(`#grid .cell[ri=${rowId}][ci=${colId}]`).html(val);
+            cellObject.value = val;
+
+            // dependent 
+            // let cellObject = getCellObject(rowId, colId);
+            // for (let i = 0; i < cellObject.downstream.length; i++) {
+            //     let schild = cellObject.downstream[i];
+            //     let fChildObj = db[schild.rowId][schild.colId];
+            //     let eValuatedVal = evaluate(fChildObj);
+            //     updateCell(schild.rowId, schild.colId, eValuatedVal)
+
+            // }
+        }
+        function getRcFromAddress(address) {
+            let colId = address.charCodeAt(0) - 65;
+            let rowId = Number(address.substring(1)) - 1;
+            return { colId, rowId };
+
         }
 
         $("#save").on("click", async function () {
