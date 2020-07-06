@@ -10,7 +10,7 @@ $(document).ready(
             let rowid = Number($(this).attr("row-id"));
             let colid = Number($(this).attr("col-id"));
             let colAddress = String.fromCharCode(colid + 65);
-            $("#address-container").val(colAddress + rowid);
+            $("#address-container").val(colAddress + (rowid+1));
         })
         $(".menu-items").on("click", function () {
             $(".menu-options-item").removeClass("selected");
@@ -155,7 +155,8 @@ $(document).ready(
         }
         function updateCell(rowId, colId, val, cellObject) {
             // update yourself
-            $(`#grid .cell[ri=${rowId}][ci=${colId}]`).html(val);
+
+            $(`#grid .cell[row-id=${rowId}][col-id=${colId}]`).html(val);
             cellObject.value = val;
 
             // dependent 
