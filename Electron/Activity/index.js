@@ -38,6 +38,7 @@ $(document).ready(
             }
             console.log(db);
         })
+
         $("#grid .cell").on("blur", function () {
             //update db
             let{rowId,colId } = getRc(this);
@@ -45,11 +46,63 @@ $(document).ready(
             if($(this).html()==db[rowId][colId].value){
                 return
             }
-            db[rowId][colId] = $(this).html();
-            //updateCell => update self // childrens
-
+            cellObject.value = $(this).html();
+            // updateCell=> update self // childrens(UI changes)
+            updateCell(rowId, colId, $(this).html(), cellObject);
         })
 
+        $("#formula-container").on("blur", function () {
+            // console.log("Formula fn")
+            // console.log(this);
+            // console.log(lsc);
+            //   cell 
+            let address = $("#address-container").val();
+            
+            // console.log(address);
+            let { rowId, colId } = getRcFromAddress(address);
+            // set formula
+            let cellObject = getCellObject(rowId, colId);
+            let formula = $(this).val();
+            cellObject.formula = formula;
+            let eValuatedVal = evaluate(cellObject);
+            updateCell(rowId, colId, eValuatedVal, cellObject);
+
+            // setUpFormula(rowId, colId, formula);
+            // evaluate
+            // update cell
+        })
+
+        function setUpFormula(rowId, colId, formula) {
+            // parent  downstream add
+            let cellObject = getCellObject(rowId, colId);
+
+            // ( A1 + A2 )
+            //    ( A1 + A2 )
+            let formulaComponent = formula.split(" ");
+            // [(,A1,+,A2,)]
+
+            for (let i = 0; i < formulaComponent.length; i++) {
+                let code = formulaComponent[i].charCodeAt(0);
+
+                if (code >= 65 && code <= 90) {
+
+                    let parentRc = getRcFromAddress(formulaComponent[i]);
+                    let fParent = db[parentRc.rowId][parentRc.colId];
+
+                    // set yourself to your parent's downstream
+                    fParent.downstream.push({
+                        rowId, colId
+                    })
+                    // // evaluate 
+                    // cellObject.upstream.push({
+                    //     rowId: parentRc.rowId,
+                    //     colId: parentRc.colId
+                    // })
+
+                }
+
+            }
+        }
         function getRc(elem){
             let rowId = $(elem).attr("row-id");
             let colId = $(elem).attr("col-id");
@@ -62,16 +115,6 @@ $(document).ready(
         function getCellObject(rowId,colId){
             return db[rowId][colId];
         }
-
-        //formula logic starts here
-        function setUpFormula(){
-
-        }
-
-
-
-
-
 
         $("#save").on("click", async function () {
             let sdb = await dialog.showOpenDialog();
