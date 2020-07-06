@@ -26,22 +26,52 @@ $(document).ready(
                 let cRowCells = $(rows[i]).find(".cell");
                 for (let j = 0; j < cRowCells.length; j++) {
                     //db
-                    let cell = "";
+                    let cell ={
+                        value : "",
+                        formula : ""
+                    };
                     row.push(cell);
                     //ui
-                    $(cRowCells[j]).html("false");
+                    $(cRowCells[j]).html("");
                 }
                 db.push(row);
             }
             console.log(db);
         })
-        $("#grid .cell").on("keyup", function () {
+        $("#grid .cell").on("blur", function () {
             //update db
-            let rowId = $(this).attr("row-id");
-            let colId = $(this).attr("col-id");
+            let{rowId,colId } = getRc(this);
+            let cellObject = getCellObject(rowId,colId);
+            if($(this).html()==db[rowId][colId].value){
+                return
+            }
             db[rowId][colId] = $(this).html();
-            console.log(db);
+            //updateCell => update self // childrens
+
         })
+
+        function getRc(elem){
+            let rowId = $(elem).attr("row-id");
+            let colId = $(elem).attr("col-id");
+            return{
+                rowId,
+                colId
+            }
+        }
+
+        function getCellObject(rowId,colId){
+            return db[rowId][colId];
+        }
+
+        //formula logic starts here
+        function setUpFormula(){
+
+        }
+
+
+
+
+
 
         $("#save").on("click", async function () {
             let sdb = await dialog.showOpenDialog();
