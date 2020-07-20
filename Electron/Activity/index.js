@@ -160,14 +160,14 @@ $(document).ready(
             cellObject.value = val;
 
             // dependent 
-            // let cellObject = getCellObject(rowId, colId);
-            // for (let i = 0; i < cellObject.downstream.length; i++) {
-            //     let schild = cellObject.downstream[i];
-            //     let fChildObj = db[schild.rowId][schild.colId];
-            //     let eValuatedVal = evaluate(fChildObj);
-            //     updateCell(schild.rowId, schild.colId, eValuatedVal)
+            let cellObject = getCellObject(rowId, colId);
+            for (let i = 0; i < cellObject.downstream.length; i++) {
+                let sdsorc = cellObject.downstream[i];
+                let fChildObj = db[schild.rowId][schild.colId];
+                let eValuatedVal = evaluate(fChildObj);
+                updateCell(schild.rowId, schild.colId, eValuatedVal)
 
-            // }
+            }
         }
         function getRcFromAddress(address) {
             let colId = address.charCodeAt(0) - 65;
