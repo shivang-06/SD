@@ -29,25 +29,27 @@ body{
     margin-top: 1rem;
 }
 .tab-container{
-    width: calc(100vw - 12rem);
+    width: calc(100vw - 14rem);
     border: 1px solid rgb(165, 165, 209);
 }
 
 .btn-container{
-    width: 10rem;
-    height: 100%;
-    height: 100%;
-    display: flex;
+    width: 11rem;
+    height: 100%
+    ;display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 .btn{
     border: none;
     background-color: rgb(75, 68, 68);
+    height: 80%;
+    width: 40%;
+    border-radius: 5px;
+    cursor: -webkit-grab; cursor: grab;
 }
 .new{
-
+    color: black;
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
 }
-.save{
 
-}
