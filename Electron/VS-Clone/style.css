@@ -43,14 +43,7 @@ body{
     transition-duration: 0.7s;
 }
 .btn:hover{
-    display: inline-block;
-    vertical-align: middle;
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    transition-duration: 0.3s;
-    transition-property: transform;
+    transform: scale(1.2);
 }
 .new{
     color: black;
@@ -74,7 +67,7 @@ body{
     width: 30%;
     height: 100%;
     border: 1px solid maroon;
-    overflow-x: auto;
+    overflow: auto;
 }
 .main-container{
     width: 68%;
