@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "hover.css": "^2.3.2",
+    "jquery": "^3.5.1",
+    "jstree": "^3.3.10"
+  },
   "devDependencies": {
     "electron": "^9.1.1"
   },
