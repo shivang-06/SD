@@ -57,9 +57,14 @@ $(document).ready(async function () {
             ext = "javascript"
         }
         myMonaco.editor.setModelLanguage(myEditor.getModel(), ext);
+        createTab(src);
     });
 })
-
+function createTab(){
+    //set name on tab
+    let fName = path.basename(src);
+    $(".tab-container").append(`<div class = "tab"><span>${fName}</span></div>`)
+}
 function createChildNode(src) {
     let isDir = fs.lstatSync(src).isDirectory();
     if (isDir == false) {

@@ -110,3 +110,15 @@ body{
 #code-editor{
     height: 100%;
 }
+
+
+
+.tab{
+    height: 75%;
+    min-width: 70px;
+    
+}
+.tab-container{
+    display: flex;
+    align-items: center;
+}
