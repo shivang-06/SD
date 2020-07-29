@@ -35,8 +35,16 @@ $(document).ready(function () {
                 $("#tree").jstree().create_node(children[i], gcNodes[j], "first");
             }
         }
-    })
-
+    }).on("select_node.jstree",function(e,data){
+        console.log("select event occured");
+        let src = data.node.id;
+        let isFile = fs.lstatSync(src).isFile();
+        if(!isFile){
+            return;
+        }
+        let content = fs.readFileSync(src) + "";
+        console.log(content);
+    });
 })
 
 function createChildNode(src) {
