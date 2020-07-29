@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 $(document).ready(function () {
+    createEditor();
     let src = process.cwd(); //current working directory => cwd
     let name = path.basename(src);
     let pObj = {
@@ -35,14 +36,14 @@ $(document).ready(function () {
                 $("#tree").jstree().create_node(children[i], gcNodes[j], "first");
             }
         }
-    }).on("select_node.jstree",function(e,data){
+    }).on("select_node.jstree",function(e,data){ //event for select on file explorer.
         console.log("select event occured");
         let src = data.node.id;
-        let isFile = fs.lstatSync(src).isFile();
-        if(!isFile){
+        let isFile = fs.lstatSync(src).isFile(); //to check if the event clicked in file explorer is a file or a directory
+        if(!isFile){ //if it is not a file then don't open in code editor
             return;
         }
-        let content = fs.readFileSync(src) + "";
+        let content = fs.readFileSync(src) + ""; //if a file, can be opened in 
         console.log(content);
     });
 })
@@ -64,4 +65,8 @@ function createChildNode(src) {
         chArr.push(chObj);
     }
     return chArr;   
+}
+
+function createEditor(){
+
 }
