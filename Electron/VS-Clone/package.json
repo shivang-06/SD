@@ -7,11 +7,11 @@
     "hover.css": "^2.3.2",
     "jquery": "^3.5.1",
     "jstree": "^3.3.10",
-    "monaco": "^1.201704190613.0",
-    "monaco-editor": "^0.20.0"
+    "monaco": "^1.201704190613.0"
   },
   "devDependencies": {
-    "electron": "^9.1.1"
+    "electron": "^9.1.1",
+    "monaco-editor": "^0.20.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

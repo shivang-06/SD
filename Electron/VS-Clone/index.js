@@ -1,12 +1,14 @@
 const $ = require("jquery");
 const path = require("path");
 const fs = require("fs");
-const { editor } = require("monaco-editor");
+// const { editor } = require("monaco-editor");
 let myEditor;
+
 $(document).ready(async function () {
     myEditor = await createEditor();
 
     // ---------------File explorer Logic ------------------
+
     let src = process.cwd(); //current working directory => cwd
     let name = path.basename(src);
     let pObj = {
@@ -92,13 +94,10 @@ function createEditor() {
         amdRequire(['vs/editor/editor.main'], function () {
             var editor = monaco.editor.create(document.getElementById('code-editor'), {
                 value: [
-                    'function x() {',
-                    '\tconsole.log("Hello world!");',
-                    '}'
+                    '// write your code here'
                 ].join('\n'),
                 language: 'javascript'
             });
-            console.log("line number 100")
             myMonaco = monaco;
             resolve(editor);
         });
