@@ -93,7 +93,19 @@ body{
 
 
 /* Code-editor styling */
-
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.editor-container{
+    height: 68%;
+    border: 1px solid;
+}
+.terminal-container{
+    height: 28%;
+    border:1px solid red;
+}
 
 #code-editor{
     height: 100%;
