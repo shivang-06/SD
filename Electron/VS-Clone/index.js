@@ -1,9 +1,12 @@
 const $ = require("jquery");
 const path = require("path");
 const fs = require("fs");
+const { editor } = require("monaco-editor");
+let myEditor;
+$(document).ready(async function () {
+    myEditor = await createEditor();
 
-$(document).ready(function () {
-    createEditor();
+    // ---------------File explorer Logic ------------------
     let src = process.cwd(); //current working directory => cwd
     let name = path.basename(src);
     let pObj = {
@@ -44,7 +47,14 @@ $(document).ready(function () {
             return;
         }
         let content = fs.readFileSync(src) + ""; //if a file, can be opened in 
-        console.log(content);
+
+        myEditor.getModel().setValue(content);
+        // how to set language in monaco editor
+        let ext = src.split(".").pop();
+        if (ext == "js") {
+            ext = "javascript"
+        }
+        myMonaco.editor.setModelLanguage(myEditor.getModel(), ext);
     });
 })
 
@@ -67,6 +77,7 @@ function createChildNode(src) {
     return chArr;
 }
 
+//npm install monaco-editor
 function createEditor() {
     const path = require('path');
     const amdLoader = require('./node_modules/monaco-editor/min/vs/loader.js');
@@ -77,15 +88,19 @@ function createEditor() {
     });
     // workaround monaco-css not understanding the environment
     self.module = undefined;
-    amdRequire(['vs/editor/editor.main'], function () {
-        var editor = monaco.editor.create(document.getElementById('code-editor'), {
-            value: [
-                'function x() {',
-                '\tconsole.log("Hello world!");',
-                '}'
-            ].join('\n'),
-            language: 'javascript'
+    return new Promise(function (resolve, reject) {
+        amdRequire(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('code-editor'), {
+                value: [
+                    'function x() {',
+                    '\tconsole.log("Hello world!");',
+                    '}'
+                ].join('\n'),
+                language: 'javascript'
+            });
+            console.log("line number 100")
+            myMonaco = monaco;
+            resolve(editor);
         });
-    });
-
+    })
 }
