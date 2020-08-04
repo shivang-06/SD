@@ -1,15 +1,14 @@
 const $ = require("jquery");
+
 const path = require("path");
 const fs = require("fs");
-// const { editor } = require("monaco-editor");
-let myEditor;
-
+let myEditor, myMonaco;
 $(document).ready(async function () {
     myEditor = await createEditor();
+    //    set editor content
 
-    // ---------------File explorer Logic ------------------
-
-    let src = process.cwd(); //current working directory => cwd
+    // ***************************File explorer logic*****************************
+    let src = process.cwd();
     let name = path.basename(src);
     let pObj = {
         id: src,
@@ -17,63 +16,84 @@ $(document).ready(async function () {
         text: name
     }
     let chArr = createChildNode(src);
-
     chArr.unshift(pObj);
+    console.log(chArr);
     $("#tree").jstree({
+        // so that create works
         "core": {
             "check_callback": true,
             "data": chArr
         },
+        // when a directory is opened
     }).on("open_node.jstree", function (e, data) {
+        // console.log(data);
         let children = data.node.children;
-
+        // console.log(children)
         for (let i = 0; i < children.length; i++) {
             let gcNodes = createChildNode(children[i]);
-
+            // console.log(gcNodes);
             for (let j = 0; j < gcNodes.length; j++) {
                 // data array 
-
-                console.log(children[i])
-                let isGcPresent = $('#tree').jstree(true).get_node(gcNodes[j].id);
-                if (isGcPresent) {
-                    return;
-                }
-                $("#tree").jstree().create_node(children[i], gcNodes[j], "first");
+                // console.log("inside gc")
+                $("#tree").jstree().create_node(children[i], gcNodes[j], "last");
             }
         }
-    }).on("select_node.jstree", function (e, data) { //event for select on file explorer.
+    }).on("select_node.jstree", function (e, data) {
         console.log("select event occured");
         let src = data.node.id;
-        let isFile = fs.lstatSync(src).isFile(); //to check if the event clicked in file explorer is a file or a directory
-        if (!isFile) { //if it is not a file then don't open in code editor
+        let isFile = fs.lstatSync(src).isFile();
+
+        if (!isFile) {
             return;
         }
-        let content = fs.readFileSync(src) + ""; //if a file, can be opened in 
-
-        myEditor.getModel().setValue(content);
-        // how to set language in monaco editor
-        let ext = src.split(".").pop();
-        if (ext == "js") {
-            ext = "javascript"
-        }
-        myMonaco.editor.setModelLanguage(myEditor.getModel(), ext);
+        setData(src);
+        // set name on tab
         createTab(src);
     });
+    const os = require('os');
+    const pty = require('node-pty');
+    // UI 
+   const Terminal = require('xterm').Terminal;
+    // Initialize node-pty with an appropriate shell
+    console.log()
+    const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL'];
+    // Magic
+    const ptyProcess = pty.spawn(shell, [], {
+        name: 'xterm-color',
+        cols: 80,
+        rows: 30,
+        cwd: process.cwd(),
+        env: process.env
+    });
+    // console.log(process.env);
+    // Initialize xterm.js and attach it to the DOM
+    const xterm = new Terminal();
+    // document
+    xterm.open(document.getElementById('terminal'));
+    // Setup communication between xterm.js and node-pty
+    xterm.onData(function (data) { 
+        // console.log("Command "+data);
+        ptyProcess.write(data) });
+    // Magic
+    
+    ptyProcess.on('data', function (data) {
+        xterm.write(data);
+    });
+
+
 })
-function createTab(){
-    //set name on tab
-    let fName = path.basename(src);
-    $(".tab-container").append(`<div class = "tab"><span>${fName}</span></div>`)
-}
 function createChildNode(src) {
     let isDir = fs.lstatSync(src).isDirectory();
+    //    console.log(src);
     if (isDir == false) {
         return [];
     }
     let children = fs.readdirSync(src);
     let chArr = [];
     for (let i = 0; i < children.length; i++) {
+
         let cPath = path.join(src, children[i]);
+
         let chObj = {
             id: cPath,
             parent: src,
@@ -81,10 +101,9 @@ function createChildNode(src) {
         }
         chArr.push(chObj);
     }
-    return chArr;
+    return chArr
 }
-
-//npm install monaco-editor
+// npm install monaco-editor
 function createEditor() {
     const path = require('path');
     const amdLoader = require('./node_modules/monaco-editor/min/vs/loader.js');
@@ -99,12 +118,56 @@ function createEditor() {
         amdRequire(['vs/editor/editor.main'], function () {
             var editor = monaco.editor.create(document.getElementById('code-editor'), {
                 value: [
-                    '// write your code here'
+                    'function x() {',
+                    '\tconsole.log("Hello world!");',
+                    '}'
                 ].join('\n'),
                 language: 'javascript'
             });
+            console.log("line number 100")
             myMonaco = monaco;
             resolve(editor);
         });
     })
+
+}
+// dynamically 
+// callback 
+function createTab(src) {
+    let fName = path.basename(src);
+    $(".tab-container").append(`
+    <div class="tab" ><span onclick=handleClick(this) id=${src}>${fName}</span>
+    <i class="fas fa-times" onclick=handleClose(this) id=${src}></i>
+    </div>`);
+}
+
+function handleClick(elem) {
+    // console.log("clicked");
+    let src = $(elem).attr("id");
+    setData(src);
+}
+function handleClose(elem) {
+    console.log("closed");
+    // remove current tab 
+    $(elem).parent().remove();
+    //set content of first tab
+    // LRU cache 
+    let src = $($(".tab-container span")[0]).attr("id");
+    if (src) {
+        setData(src);
+    }
+
+}
+function setData(src) {
+    let content = fs.readFileSync(src) + "";
+    //    show in editor
+    // console.log(content);
+    myEditor.getModel().setValue(content);
+    // how to set language in monaco editor
+    let ext = src.split(".").pop();
+
+    if (ext == "js") {
+        ext = "javascript"
+    }
+    myMonaco.editor.setModelLanguage(myEditor.getModel(), ext);
 }
