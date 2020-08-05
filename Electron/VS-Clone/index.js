@@ -53,7 +53,7 @@ $(document).ready(async function () {
     const os = require('os');
     const pty = require('node-pty');
     // UI 
-   const Terminal = require('xterm').Terminal;
+    const Terminal = require('xterm').Terminal;
     // Initialize node-pty with an appropriate shell
     console.log()
     const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL'];
@@ -67,19 +67,30 @@ $(document).ready(async function () {
     });
     // console.log(process.env);
     // Initialize xterm.js and attach it to the DOM
+    let { FitAddon } = require('xterm-addon-fit');
     const xterm = new Terminal();
+    
+    const fitAddon = new FitAddon();
+    xterm.loadAddon(fitAddon);
+
+    // Open the terminal in #terminal-container
+    xterm.open(document.getElementById('terminal-container'));
+
     // document
     xterm.open(document.getElementById('terminal'));
     // Setup communication between xterm.js and node-pty
-    xterm.onData(function (data) { 
+    xterm.onData(function (data) {
         // console.log("Command "+data);
-        ptyProcess.write(data) });
+        ptyProcess.write(data)
+    });
     // Magic
-    
+
     ptyProcess.on('data', function (data) {
         xterm.write(data);
     });
 
+    // Make the terminal's size and geometry fit the size of #terminal-container
+    fitAddon.fit();
 
 })
 function createChildNode(src) {

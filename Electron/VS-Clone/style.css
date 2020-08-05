@@ -127,3 +127,7 @@ body{
 .fa-times{
     font-size: 60%;
 }
+
+#terminal{
+    height: 100%;
+}

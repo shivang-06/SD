@@ -4,14 +4,15 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "electron": "^9.1.1",
     "hover.css": "^2.3.2",
     "jquery": "^3.5.1",
     "jstree": "^3.3.10",
     "monaco": "^1.201704190613.0",
+    "monaco-editor": "^0.20.0",
     "node-pty": "^0.9.0",
     "xterm": "^4.8.1",
-    "electron": "^9.1.1",
-    "monaco-editor": "^0.20.0"
+    "xterm-addon-fit": "^0.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
