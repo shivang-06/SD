@@ -55,7 +55,6 @@ $(document).ready(async function () {
     // UI 
     const Terminal = require('xterm').Terminal;
     // Initialize node-pty with an appropriate shell
-    console.log()
     const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL'];
     // Magic
     const ptyProcess = pty.spawn(shell, [], {
@@ -63,19 +62,16 @@ $(document).ready(async function () {
         cols: 80,
         rows: 30,
         cwd: process.cwd(),
-        env: process.env
+        env: process.env,
+
     });
     // console.log(process.env);
     // Initialize xterm.js and attach it to the DOM
     let { FitAddon } = require('xterm-addon-fit');
     const xterm = new Terminal();
-    
     const fitAddon = new FitAddon();
     xterm.loadAddon(fitAddon);
-
-    // Open the terminal in #terminal-container
-    xterm.open(document.getElementById('terminal-container'));
-
+    // Make the terminal's size and geometry fit the size of #terminal-container
     // document
     xterm.open(document.getElementById('terminal'));
     // Setup communication between xterm.js and node-pty
@@ -83,15 +79,29 @@ $(document).ready(async function () {
         // console.log("Command "+data);
         ptyProcess.write(data)
     });
-    // Magic
 
+    // Magic
     ptyProcess.on('data', function (data) {
         xterm.write(data);
     });
 
-    // Make the terminal's size and geometry fit the size of #terminal-container
     fitAddon.fit();
-
+    myMonaco.editor.defineTheme('myTheme', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [{ background: '#1e2024' }],
+        "colors": {
+            "editor.foreground": "#F8F8F8",
+            "editor.background": "#1e2024",
+            "editor.selectionBackground": "#DDF0FF33",
+            "editor.lineHighlightBackground": "#FFFFFF08",
+            "editorCursor.foreground": "#A7A7A7",
+            "editorWhitespace.foreground": "#FFFFFF40"
+        }
+    });
+    setTimeout(function () {
+        myMonaco.editor.setTheme('myTheme');
+    },10000);
 })
 function createChildNode(src) {
     let isDir = fs.lstatSync(src).isDirectory();
@@ -127,13 +137,15 @@ function createEditor() {
     self.module = undefined;
     return new Promise(function (resolve, reject) {
         amdRequire(['vs/editor/editor.main'], function () {
+            
             var editor = monaco.editor.create(document.getElementById('code-editor'), {
                 value: [
                     'function x() {',
                     '\tconsole.log("Hello world!");',
                     '}'
                 ].join('\n'),
-                language: 'javascript'
+                language: 'javascript',
+                theme: "vs"
             });
             console.log("line number 100")
             myMonaco = monaco;
