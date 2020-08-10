@@ -1,5 +1,6 @@
 // press mouse
 let isPenDown = false;
+console.log("We are in canvas");
 board.addEventListener("mousedown", function (e) {
     // begin path
     ctx.beginPath();
