@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -16,31 +17,45 @@
             padding: 0px;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-    <div class="combined">
-        <div class="toolbar">
-            
-        </div>
-
-        <!-- <input type="text">
+    <!-- <input type="text">
     <ul class="shopping-cart"></ul>
     <button class="click-btn"> Click Me</button>
     <script src="index.js"></script> -->
-        <!-- Drawing board -->
-        <h1>HIIIII</h1>
-        <canvas class="board"></canvas>
-        <script>
-            let board = document.querySelector(".board");
+    <!-- Drawing board -->
+    <div class="tool-bar">
+        <div class="hamburger"></div>
+        <div class="tool-panel">
+            <div class="tool">
+                <i class="fas fa-pencil-alt fa-3x" onclick="handleTool('pencil')"></i>
+                <div class="tool-options"></div>
+            </div>
+            <div class="tool">
+                <i class="fas fa-eraser fa-3x" style="--fa-primary-color: gold;" onclick="handleTool('eraser')"></i>
+                <div class="tool-options"></div>
+            </div>
+        </div>
+    </div>
+    <canvas class="board"></canvas>
+    <script>
+        let board = document.querySelector(".board");
+        board.height = window.innerHeight;
+        board.width = window.innerWidth;
+        //  2d , 3d ,Webgl
+        let ctx = board.getContext("2d");
+        window.addEventListener("resize", function () {
             board.height = window.innerHeight;
             board.width = window.innerWidth;
-            //  2d , 3d ,Webgl
-            let ctx = board.getContext("2d");
-        </script>
-        <script src="canvas.js"></script>
-    </div>
+            // redraw=> redraw
+        })
+    </script>
+    <script src="tools.js"></script>
+    <script src="canvas.js"></script>
+
 </body>
 
 </html>
