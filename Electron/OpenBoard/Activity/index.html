@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <style>
         * {
             box-sizing: border-box;
@@ -17,7 +16,6 @@
             padding: 0px;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -31,12 +29,25 @@
         <div class="hamburger"></div>
         <div class="tool-panel">
             <div class="tool">
-                <i class="fas fa-pencil-alt fa-3x" onclick="handleTool('pencil')"></i>
-                <div class="tool-options"></div>
+                <img src="./NewIcons/Black_Pencil.svg" alt="" class="tool-img" id="pencil"
+                    onclick="handleTool('pencil')">
+                <div class="tool-options">
+                    <div class="slider">
+                        <input type="range" name="" id="">
+                    </div>
+                    <div class="colors">
+                        <div class="color red"></div>
+                        <div class="color green"></div>
+                        <div class="color blue"></div>
+                    </div>
+
+                </div>
             </div>
             <div class="tool">
-                <i class="fas fa-eraser fa-3x" style="--fa-primary-color: gold;" onclick="handleTool('eraser')"></i>
-                <div class="tool-options"></div>
+                <img src="./NewIcons/Eraser.svg" alt="" class="tool-img" id="eraser" onclick="handleTool('eraser')">;
+                <div class="tool-options">
+                    <div class="slider"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -54,7 +65,7 @@
         })
     </script>
     <script src="tools.js"></script>
-    <script src="canvas.js"></script>
+    <script src="canavs.js"></script>
 
 </body>
 
