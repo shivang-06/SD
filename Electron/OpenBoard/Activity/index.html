@@ -31,22 +31,24 @@
             <div class="tool">
                 <img src="./NewIcons/Black_Pencil.svg" alt="" class="tool-img" id="pencil"
                     onclick="handleTool('pencil')">
-                <div class="tool-options">
+                <div class="tool-options" id="pencil-options">
                     <div class="slider">
-                        <input type="range" name="" id="">
+                        <input type="range" max='50' min='4' value='5' step='1'>
                     </div>
                     <div class="colors">
-                        <div class="color red"></div>
-                        <div class="color green"></div>
-                        <div class="color blue"></div>
+                        <div class="color red" onclick="changeColor('red')"></div>
+                        <div class="color green" onclick="changeColor('green')"></div>
+                        <div class="color blue" onclick="changeColor('blue')"></div>
                     </div>
 
                 </div>
             </div>
             <div class="tool">
-                <img src="./NewIcons/Eraser.svg" alt="" class="tool-img" id="eraser" onclick="handleTool('eraser')">;
-                <div class="tool-options">
-                    <div class="slider"></div>
+                <img src="./NewIcons/Eraser.svg" alt="" class="tool-img" id="eraser" onclick="handleTool('eraser')">
+                <div class="tool-options" id="eraser-options">
+                    <div class="slider">
+                        <input type="range" name="" max='50' min='4' value='5' step='1'>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,46 +67,8 @@
         })
     </script>
     <script src="tools.js"></script>
-    <script src="canavs.js"></script>
+    <script src="canvas.js"></script>
 
 </body>
 
 </html>
-<!-- // tool
-        // console.log(ctx);
-        // // to 
-        // ctx.fillStyle = "green";
-        // // adjust width of stroke
-        // ctx.lineWidth = 5;
-        // ctx.strokeStyle = "purple";
-        // //  x, y , width ,height
-        // // ctx.fillRect(100, 100, 100, 100);
-        // // ctx.strokeRect(100, 100, 150, 100);
-        // //    a new path starts
-        // // Path
-        // ctx.beginPath();
-        // //  move without drwaing
-        // // sb-1
-        // ctx.moveTo(50, 100);
-        // // connect to last moveTo
-        // ctx.lineTo(100, 200);
-        // //    sb-2
-        // ctx.lineTo(200, 100);
-        // ctx.stroke();
-        // ctx.closePath();
-        // //  new Path
-        // ctx.beginPath();
-        // ctx.moveTo(250, 100);
-        // ctx.lineTo(300, 200);
-        // ctx.strokeStyle = "red";
-        // ctx.stroke();
-        // ctx.fill()
-        // function degToRad(degrees) {
-        //     return degrees * Math.PI / 180;
-        // };
-        // ctx.fillStyle = 'yellow';
-        // ctx.beginPath();
-        // ctx.arc(200, 106, 50, degToRad(-45), degToRad(45), true);
-        // ctx.lineTo(200, 106);
-        // ctx.stroke();
-        // ctx.fill(); -->

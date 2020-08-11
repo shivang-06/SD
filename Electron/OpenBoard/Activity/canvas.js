@@ -12,10 +12,16 @@ board.addEventListener("mousedown", function (e) {
     console.log("Mouse down")
     isPenDown = true;
 })
+// let toolBox = document.querySelectorAll(".tool-options");
+
 // on move
 board.addEventListener("mousemove", function (e) {
     if (isPenDown) {
-        console.log("Mouse move")
+        console.log("Mouse move");
+        // for (let i = 0; i < toolBox.length; i++) {
+        //     toolBox[i].classList.add("hide");
+        // }
+
         // lineTo
         let x = e.clientX;
         let y = e.clientY;
@@ -24,6 +30,7 @@ board.addEventListener("mousemove", function (e) {
         ctx.lineTo(x, y);
         // stroke
         ctx.stroke();
+
     }
 })
 window.addEventListener("mouseup", function () {
@@ -35,4 +42,9 @@ window.addEventListener("mouseup", function () {
 function getLocation() {
     let { top } = board.getBoundingClientRect();
     return top;
+}
+for (let i = 0; i < toolBox.length; i++) {
+    toolBox[i].addEventListener("click",function(){
+        toolBox[i].classList.add("show");
+    })
 }
