@@ -43,8 +43,8 @@ function getLocation() {
     let { top } = board.getBoundingClientRect();
     return top;
 }
-for (let i = 0; i < toolBox.length; i++) {
-    toolBox[i].addEventListener("click",function(){
-        toolBox[i].classList.add("show");
-    })
-}
+// for (let i = 0; i < toolBox.length; i++) {
+//     toolBox[i].addEventListener("click",function(){
+//         toolBox[i].classList.add("show");
+//     })
+// }
