@@ -60,9 +60,6 @@ function createSticky() {
             initialY = finalY;
         }
     })
-    navBar.addEventListener("mouseup",function(){
-        isStickyDown = false;
-    })
     navBar.addEventListener("mouseleave",function(e){
         if(isStickyDown){
             let finalX = e.clientX;
@@ -75,6 +72,12 @@ function createSticky() {
             initialX = finalX;
             initialY = finalY;
         }
+    })
+    navBar.addEventListener("mouseup",function(){
+        isStickyDown = false;
+    })
+    navBar.addEventListener("mouseleave", function (e) {
+        isStickyDown = false
     })
 
 }
