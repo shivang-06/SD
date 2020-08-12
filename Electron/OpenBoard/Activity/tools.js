@@ -30,6 +30,10 @@ function handleTool(tool) {
         }
     }else if (tool == "sticky") {
         createSticky();
+    }else if (tool == "upload") {
+        uploadFile();
+    } else if (tool == "undo") {
+        undoLast();
     }
 }
 //Handling color change
@@ -43,4 +47,7 @@ for (let i = 0; i < sliders.length; i++) {
         let width = sliders[i].value;
         ctx.lineWidth = width;
     })
+}
+function undoLast(){
+    
 }

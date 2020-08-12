@@ -88,7 +88,7 @@ position: relative;
     align-items: center;
     padding-right: 11px;
     background-color: rgb(255, 255, 163);
-}
+    border-radius: 2% 25% 8%;}
 
 .close,.minimize{
     height: 54%;
@@ -103,9 +103,15 @@ position: relative;
     background: rgb(55, 192, 55);
 }
 .textbox{
-    height: 80%;
+    height: 80%;    
+    width: 100%;
 }
 .textbox textarea{
+    height: 100%;
+    width: 100%;
+}
+
+.upload-img{
     height: 100%;
     width: 100%;
 }
