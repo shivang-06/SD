@@ -35,7 +35,6 @@ position: relative;
 .slider{
     height: 38%;
 }
-
 /* Pen colors */
 .colors{
     height: 80%;
@@ -60,6 +59,8 @@ position: relative;
     background-color: green;
 }
 
+
+
 /* Utility classes */
 .show{
     display: block;
@@ -67,6 +68,8 @@ position: relative;
 .hide{
     display: none;
 }
+
+
 
 /* Stickypad styling */
 .stickyPad{
@@ -99,7 +102,6 @@ position: relative;
 .minimize{
     background: rgb(55, 192, 55);
 }
-
 .textbox{
     height: 80%;
 }

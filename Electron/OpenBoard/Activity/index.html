@@ -21,17 +21,12 @@
 </head>
 
 <body>
-    <!-- <input type="text">
-    <ul class="shopping-cart"></ul>
-    <button class="click-btn"> Click Me</button>
-    <script src="index.js"></script> -->
-    <!-- Drawing board -->
     <div class="tool-bar">
         <div class="hamburger"></div>
         <div class="tool-panel">
             <div class="tool">
                 <img src="./NewIcons/Black_Pencil.svg" alt="" class="tool-img" id="pencil"
-                    onclick="handleTool('pencil')">
+                onclick="handleTool('pencil')">
                 <div class="tool-options" id="pencil-options">
                     <div class="slider">
                         <input type="range" max='50' min='4' value='5' step='1'>
@@ -41,7 +36,7 @@
                         <div class="color green" onclick="changeColor('green')"></div>
                         <div class="color blue" onclick="changeColor('blue')"></div>
                     </div>
-
+                    
                 </div>
             </div>
             <div class="tool">
@@ -54,13 +49,14 @@
             </div>
             <div class="tool">
                 <img src="./NewIcons/StickyNote.svg" alt="" class="tool-img" id="sticky" onclick="handleTool('sticky')">
-
+                
             </div>
         </div>
     </div>
-    </div>
-    <canvas class="board"></canvas>
- 
+</div>
+<!-- Drawing board -->
+<canvas class="board"></canvas>
+
     <script>
         let board = document.querySelector(".board");
         board.height = window.innerHeight;
