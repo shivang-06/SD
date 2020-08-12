@@ -6,7 +6,6 @@ ctx.lineJoin='round';
 //setting pencil by default when app is opened
 let activeTool = 'pencil';
 
-
 let pencil = document.querySelector("#pencil");
 let eraser = document.querySelector("#eraser");
 let pencilOptions = document.querySelector("#pencil-options");
@@ -47,7 +46,4 @@ for (let i = 0; i < sliders.length; i++) {
         let width = sliders[i].value;
         ctx.lineWidth = width;
     })
-}
-function undoLast(){
-    
 }
