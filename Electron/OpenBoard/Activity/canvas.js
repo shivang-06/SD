@@ -1,5 +1,5 @@
 let undoStack = [];
-let redoStack =[];
+let redoStack = [];
 // press mouse
 let isPenDown = false;
 board.addEventListener("mousedown", function (e) {
@@ -61,25 +61,62 @@ function getLocation() {
 
 
 function undoLast() {
-    //pop the last point and add it in redo stack
-    redoStack.push(undoStack.pop());
-    //clear the board
-    ctx.clearRect(0, 0, board.width, board.height);
-    //redraw after undo
-    redraw();
+    //  pop the last point
+    if (undoStack.length >= 2) {
+        //  lines 
+        for (let i = undoStack.length - 1; i > 0; i--) {
+            let id = undoStack[i].id;
+            if (id == "md") {
+                redoStack.push(undoStack.pop());
+                break;
+            } else {
+                // undoArr.pop();
+                redoStack.push(undoStack.pop());
+            }
+        }
+        //  clear canvas=> 
+        ctx.clearRect(0, 0, board.width, board.height);
+        // redraw
+        redraw();
+    }
 }
 
-function redraw(){
+function redoLast() {
+    if (redoStack.length >= 2) {
+        //  lines 
+        let mdc = 0;
+        for (let i = redoStack.length - 1; i >= 0; i--) {
+            let { id } = redoStack[i];
+            if (id == "md") {                                    
+                mdc++;
+                if (mdc > 1) {
+                    break;
+                }
+                else {
+                    undoStack.push(redoStack.pop());
+                }
+            } else {
+                undoStack.push(redoStack.pop());
+            }
+        }
+        //  clear canvas=> 
+        ctx.clearRect(0, 0, board.width, board.height);
+        // redraw
+        redraw();
+    }
+}
+
+function redraw() {
     for (let i = 0; i < undoStack.length; i++) {
-        let {x,y,id,color,width}  = undoStack[i];
+        let { x, y, id, color, width } = undoStack[i];
         ctx.strokeStyle = color;
         ctx.lineWidth = width;
-        if(id == "md"){
+        if (id == "md") {
             ctx.beginPath();
-            ctx.moveTo(x,y);
-        }else if(id == "mm"){
-            ctx.lineTo(x,y);
+            ctx.moveTo(x, y);
+        } else if (id == "mm") {
+            ctx.lineTo(x, y);
             ctx.stroke();
-        }            
+        }
     }
 }
