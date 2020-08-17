@@ -64,4 +64,3 @@ function createBox() {
     })
     return textbox;
 }
-

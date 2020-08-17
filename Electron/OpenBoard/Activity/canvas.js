@@ -1,9 +1,10 @@
-let undoStack = [];
-let redoStack = [];
 // press mouse
 let isPenDown = false;
+let undoArr = [];
+let redoArr = [];
 board.addEventListener("mousedown", function (e) {
     // begin path
+
     ctx.beginPath();
     // move to mouse pointers location
     let x = e.clientX;
@@ -13,6 +14,7 @@ board.addEventListener("mousedown", function (e) {
     ctx.moveTo(x, y);
     console.log("Mouse down")
     isPenDown = true;
+    // mouse down
     let mdp = {
         x,
         y,
@@ -20,15 +22,12 @@ board.addEventListener("mousedown", function (e) {
         color: ctx.strokeStyle,
         width: ctx.lineWidth
     }
-    undoStack.push(mdp);
+    undoArr.push(mdp);
 })
-
 // on move
 board.addEventListener("mousemove", function (e) {
     if (isPenDown) {
-        console.log("Mouse move");
-
-
+        console.log("Mouse move")
         // lineTo
         let x = e.clientX;
         let y = e.clientY;
@@ -37,6 +36,7 @@ board.addEventListener("mousemove", function (e) {
         ctx.lineTo(x, y);
         // stroke
         ctx.stroke();
+        // mouse move
         let mmp = {
             x,
             y,
@@ -44,7 +44,7 @@ board.addEventListener("mousemove", function (e) {
             color: ctx.strokeStyle,
             width: ctx.lineWidth
         }
-        undoStack.push(mmp);
+        undoArr.push(mmp);
     }
 })
 window.addEventListener("mouseup", function () {
@@ -57,23 +57,24 @@ function getLocation() {
     let { top } = board.getBoundingClientRect();
     return top;
 }
-
-
-
 function undoLast() {
     //  pop the last point
-    if (undoStack.length >= 2) {
+    if (undoArr.length >= 2) {
         //  lines 
-        for (let i = undoStack.length - 1; i > 0; i--) {
-            let id = undoStack[i].id;
+        console.log(undoArr);
+        let tempArr = []
+        for (let i = undoArr.length - 1; i >= 0; i--) {
+            console.log(undoArr[i]);
+            let id = undoArr[i].id;
             if (id == "md") {
-                redoStack.push(undoStack.pop());
+                tempArr.unshift(undoArr.pop());
                 break;
             } else {
                 // undoArr.pop();
-                redoStack.push(undoStack.pop());
+                tempArr.unshift(undoArr.pop());
             }
         }
+        redoArr.push(tempArr);
         //  clear canvas=> 
         ctx.clearRect(0, 0, board.width, board.height);
         // redraw
@@ -82,22 +83,11 @@ function undoLast() {
 }
 
 function redoLast() {
-    if (redoStack.length >= 2) {
+    if (redoArr.length > 0) {
         //  lines 
-        let mdc = 0;
-        for (let i = redoStack.length - 1; i >= 0; i--) {
-            let { id } = redoStack[i];
-            if (id == "md") {                                    
-                mdc++;
-                if (mdc > 1) {
-                    break;
-                }
-                else {
-                    undoStack.push(redoStack.pop());
-                }
-            } else {
-                undoStack.push(redoStack.pop());
-            }
+        let undoPath = redoArr.pop();
+        for (let i = 0; i < undoPath.length; i++) {
+            undoArr.push(undoPath[i]);
         }
         //  clear canvas=> 
         ctx.clearRect(0, 0, board.width, board.height);
@@ -105,15 +95,14 @@ function redoLast() {
         redraw();
     }
 }
-
 function redraw() {
-    for (let i = 0; i < undoStack.length; i++) {
-        let { x, y, id, color, width } = undoStack[i];
+    for (let i = 0; i < undoArr.length; i++) {
+        let { x, y, id, color, width } = undoArr[i];
         ctx.strokeStyle = color;
         ctx.lineWidth = width;
         if (id == "md") {
             ctx.beginPath();
-            ctx.moveTo(x, y);
+            ctx.moveTo(x, y)
         } else if (id == "mm") {
             ctx.lineTo(x, y);
             ctx.stroke();
