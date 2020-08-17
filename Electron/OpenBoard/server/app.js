@@ -1,10 +1,10 @@
 //npm install express
 const express = require("express");
 const app = express();
-//const path = require("path");
+
 app.use(express.static("activity"));
 app.get("/home",function(req,res){
-    res.sendFile(path.join(__dirname,"activity/index.html"));
+    res.sendFile(path.join(__dirname,"Activity/index.html"));
 })
 //tcp => uniquely identify server on a machine
 
