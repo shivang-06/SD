@@ -1,3 +1,4 @@
+
 ctx.lineWidth = 5;
 ctx.lineCap = "round";
 ctx.lineJoin = 'round';
@@ -38,6 +39,8 @@ function handleTool(tool) {
 }
 function changeColor(color) {
     ctx.strokeStyle = color;
+    // send 
+    socket.emit("colorChange", color)
 }
 let sliders = document.querySelectorAll("input[type='range']");
 for (let i = 0; i < sliders.length; i++) {

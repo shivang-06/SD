@@ -23,6 +23,8 @@ board.addEventListener("mousedown", function (e) {
         width: ctx.lineWidth
     }
     undoArr.push(mdp);
+    //  point => realtime draw
+    socket.emit("md", mdp);
 })
 // on move
 board.addEventListener("mousemove", function (e) {
@@ -45,6 +47,8 @@ board.addEventListener("mousemove", function (e) {
             width: ctx.lineWidth
         }
         undoArr.push(mmp);
+        //send => realtime
+        socket.emit("mm", mmp);
     }
 })
 window.addEventListener("mouseup", function () {
