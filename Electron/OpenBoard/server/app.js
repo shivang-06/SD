@@ -25,6 +25,6 @@ socketServer.on("connection", function (socket) {
 })
 //tcp => uniquely identify server on a machine
 
-httpServer.listen(8080, function () {
+httpServer.listen(3000, function () {
     console.log("Server is listening to request at port 3000");
 })

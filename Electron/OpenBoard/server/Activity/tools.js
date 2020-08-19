@@ -15,6 +15,7 @@ function handleTool(tool) {
         } else {
             ctx.strokeStyle = "black";
             activeTool = "pencil";
+            ctx.globalCompositionOperation = "source-over";
             eraserOptions.classList.remove("show");
         }
     } else if (tool == "eraser") {
@@ -23,6 +24,7 @@ function handleTool(tool) {
         } else {
             ctx.strokeStyle = "white";
             activeTool = "eraser";
+            ctx.globalCompositionOperation = "destination-out";
             pencilOptions.classList.remove("show");
         }
     } else if (tool == "sticky") {
