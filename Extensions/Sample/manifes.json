@@ -1,0 +1,12 @@
+{
+    "name": "Dev ext",
+    "version": "1.0",
+    "description": "It changes images of webpage",
+    "manifest_version": 2,
+    "content_scripts": [{
+        "matches": [
+            "http://*.nytimes.com/*"
+        ],
+        "css": ["myStyles.css"]
+    }]
+}
