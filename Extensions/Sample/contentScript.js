@@ -1,4 +1,4 @@
-function replaceImage() {
+function replaceImg() {
 
     let imgPaths = [
         "images/harry_potter_always.jpg",
@@ -17,3 +17,18 @@ function replaceImage() {
         aIP[i].src = fullPath;
     }
 }
+
+let message = { greeting: "hello" };
+
+chrome.runtime.sendMessage(message, function (response) {
+    console.log("recieved from background.js")
+    console.log(response)
+});
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        console.log(sender);
+        // if (request.greeting == "hello") {
+        //     console.log("Recieved from popup");
+        // }
+        replaceImg()
+    })
