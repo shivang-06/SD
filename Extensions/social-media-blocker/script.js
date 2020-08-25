@@ -3,9 +3,10 @@ const subBtn = document.querySelector("button");
 const ul = document.querySelector("ul");
 subBtn.addEventListener("click",async function(){
     const val = document.getElementById("input").value;
-
-    await sendToBackground(val);
-    displayOnPopup(val);
+    if(val!=""){
+        await sendToBackground(val);
+        displayOnPopup(val);
+    }
 })
 
 function displayOnPopup(val){

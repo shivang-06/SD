@@ -15,15 +15,16 @@ async function init() {
 
         if (tab) {
             let cTabUrl = tab.url;
-            console.log(tab);
             for (let i = 0; i < blockedSites.length; i++) {
                 let isMatching = cTabUrl.includes(blockedSites[i].site);
                 if (isMatching) {
+
                     blockedSites[i].time--;
                     console.log("time remaining  "+ blockedSites[i].time);
                     if (blockedSites[i].time <= 0) {
                         // close current tab
                         console.log("closed"+ blockedSites[i].site);
+                        await closeTab(tab.id);
                     }
                 }
 
@@ -41,3 +42,8 @@ function getCurrentTab() {
 
 }
 setInterval(init, 1000);
+function closeTab(id){
+    return new Promise(function(resolve,reject){
+        
+    })
+}
