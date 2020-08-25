@@ -1,6 +1,7 @@
 body{
     margin-left: 5px;
-    margin-right: 2px;
+    margin-right: 5px;
+    width: max-content;
 }
 
 input{
@@ -9,6 +10,7 @@ input{
     margin-right: 5px;
     margin-left: 3px;
 }
+
 button{
     margin-left: 4px;
     margin-bottom: 5px;
