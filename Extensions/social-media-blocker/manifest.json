@@ -1,0 +1,13 @@
+{
+    "name": "website blocker",
+    "version": "1.0",
+    "description": "Used to block a website and not let user open that website after a predecided amount of time",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "hello.html"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+    }
+}
