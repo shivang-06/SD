@@ -15,6 +15,7 @@ async function init() {
 
         if (tab) {
             let cTabUrl = tab.url;
+            console.log(tab);
             for (let i = 0; i < blockedSites.length; i++) {
                 let isMatching = cTabUrl.includes(blockedSites[i].site);
                 if (isMatching) {
@@ -34,7 +35,7 @@ async function init() {
 function getCurrentTab() {
     return new Promise(function (resolve, reject) {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            resolve(tabs[0]);
+            resolve(tabs[0]); // tabs[0] => latest tab returned 
         })
     })
 
