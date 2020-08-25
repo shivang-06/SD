@@ -2,3 +2,7 @@ input{
     margin-top: 2px;
     margin-bottom: 4px;
 }
+button{
+    background-color: cornsilk;
+    border-radius: 12.5%;
+}
