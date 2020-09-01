@@ -3,6 +3,32 @@
         "name": "steve",
         "age": "10",
         "email": "abc@gmail.com",
-        "phone": "12345678900"
+        "phone": "12345678900",
+        "user_id": "steve114",
+        "password": "1151551"
+    },
+    {
+        "name": "sally",
+        "age": "15",
+        "email": "abc23@gmail.com",
+        "phone": "12345678900",
+        "user_id": "sally74",
+        "password": "126589"
+    },
+    {
+        "name": "lilly",
+        "age": "25",
+        "email": "magic23@gmail.com",
+        "phone": "12345678900",
+        "user_id": "lily06",
+        "password": "12658914"
+    },
+    {
+        "name": "harry",
+        "age": "20",
+        "email": "expecto23@gmail.com",
+        "phone": "1234900",
+        "user_id": "patronum4",
+        "password": "12658914225"
     }
 ]
