@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "electron": "^9.1.1",
+    "electron": "^18.3.7",
     "hover.css": "^2.3.2",
     "jquery": "^3.5.1",
     "jstree": "^3.3.10",
